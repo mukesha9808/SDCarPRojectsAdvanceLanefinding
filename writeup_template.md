@@ -130,4 +130,25 @@ Here's a [link to my video result](./output_video/project_video1.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+I managed to achieve line dtection reasonably well but there are challenges/shortcomings which need to be addressed. I will try to discuss challenges step by step
+
+Image thresholding: 
+I used combinationation of s-channes, r-channel and b-channel and gradient magnitude and direction threshold. despite using this, lane pixels may be missed in some of following scenario
+   1. lane marking is covered with snow or any other things
+   2. Snow is making line al shadowongside of lane marking
+   3. shadow of trees, overbridges
+   4. Sharp bend on the road etc.
+   
+Perspective transformation:
+Perpective transformation works well on considerably flat roads but I think image transformation may not be that good if road is steep specially when road is bending.
+
+Sliding window search:
+Sliding window is dependant on rectangle size. if rectangle is too big, it may contain too many outliers and lane may deviate its path. and if rectangle is small then pixels may be missed.  In some cases, binary thresholding picks up pixels which fall into far end of rectangle and results into deviation in path.
+
+Polynomial fit:
+Polynomial fit try to fit all the pixels which contains outliers and some time lane is fitted in wrong way.
+
+Search around polynomial:
+Search around polynomial may not consider points in other direction and lane ditection may not work properly
+
+ 
